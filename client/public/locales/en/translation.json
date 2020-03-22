@@ -1,0 +1,18 @@
+{
+    
+    "login": 
+    {   "GENERAL": "An error occured. Please try Again later.",
+        "DATA_MISSING": "One or more arguments are missing.",
+        "LOGINPHONE": "Wrong phone",
+        "LOGINPSWD": "Wrong password",
+        "VERIF": "Account is not verified",
+        "NAME": "Full name must have between 5 and 30 and only Alphabetic",
+        "PHONE":"Phone is not Valid",
+        "PSWD":"Password requires at least 1 lower 1 upper case letter and 1 digit and between 5 and 20",
+        "REGISTER_PHONE": "PHONE Already Exists",
+        "CODE": " Wrong CODE",
+        "REGION":"Wrong Region",
+        "PSWD_CONFI":"Confirmation Password incorrect"
+
+    }
+}
