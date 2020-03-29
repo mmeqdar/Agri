@@ -21,7 +21,7 @@ import MuiAlert from '@material-ui/lab/Alert';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import PhoneOutlinedIcon from '@material-ui/icons/PhoneOutlined';
 import { useTranslation } from 'react-i18next';
-
+import './index.css'
 var mssg = null
 var form={
   phone:null,
@@ -88,7 +88,7 @@ const useStyles = makeStyles(theme => ({
     backgroundPosition: 'center',
   },
   paper: {
-    margin: theme.spacing(8, 4),
+    //margin: theme.spacing(8, 4),
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -236,198 +236,235 @@ export default function SignInSide(props) {
       e.target.style.color= "green"
       form.pswd = e.target.value
   };
-if(localStorage.getItem('langue')  === "en")
+if(localStorage.getItem('langue')  !== "ar")
   {
   return (
-    <ContainerR  maxWidth="xs"  component={Paper} elevation={5}> 
-    <CssBaseline />
-    <div className={classes.paper}>
-      <Avatar className={classes.avatar}>
-        <LockOutlinedIcon />
-      </Avatar>
-      <Typography component="h1" variant="h5">
-        Sign in
-      </Typography>
-          <form className={classes.form} noValidate>
-          <ThemeProvider theme={theme}>
-          <Grid item xs={12}>
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              id="Phone"
-              label="Phone Number"
-              name="Phone"
-              autoComplete="Phone"
-              variant="outlined"
-              autoFocus
-              onChange={handleChangePhone}
-              InputProps={{
-              
-                startAdornment: <InputAdornment position="start"><PhoneOutlinedIcon /></InputAdornment>,
-              }}
-            />
-            </Grid>
-              <Grid item xs={12}>
-            <TextField
-              variant="outlined"
-              required
-              fullWidth
-              name="password"
-              value={values.Password}
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-              type={values.showPassword ? 'text' : 'password'}
-              InputProps={{
-                startAdornment: <InputAdornment position="start">
-                <IconButton
-                  aria-label="toggle password visibility"
-                  onClick={handleClickShowPassword}
-                  onMouseDown={handleMouseDownPassword}
-                >
-                {values.showPassword ? <Visibility /> : <VisibilityOff />}
-                </IconButton>
-              </InputAdornment>,
-              }}
-              //onChange={handleChangePswd}
-            />
-            </Grid>
-            <ColorButton
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-              onClick ={send}
-            >
-              Sign In
-            </ColorButton>
-            <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-              <Alert onClose={handleClose} severity="error" >
-                 {mssg}
-              </Alert>
-          </Snackbar>
-            <Grid container >
-              <Grid item xs >
-                <Link href="/forgot" variant="body2" className={classes.colorLink}>
-                  Forgot password?
-                </Link>
-              </Grid>
-              <Grid item>
-                <Link href="/account/register" variant="body2" className={classes.colorLink}>
-                  {"Don't have an account? Sign Up"}
-                </Link>
-              </Grid>
-            </Grid>
-            
-            </ThemeProvider>
-          </form>
-        </div>
-        <Box mt={5}>
-              <Copyright />
-        </Box>
-        </ContainerR>
+    <React.Fragment>
+                <section className="login-area">
+                    <div className="container">
+                        <div className="row">
+                            <div className="col-lg-6 col-md-12">
+                            <ContainerR  maxWidth="xs"  component={Paper} elevation={5}> 
+                              <CssBaseline />
+                              <div className={classes.paper}>
+                                <Avatar className={classes.avatar}>
+                                  <LockOutlinedIcon />
+                                </Avatar>
+                                <Typography component="h1" variant="h5">
+                                  {t('login.h1')}
+                                </Typography>
+                                    <form className={classes.form} noValidate>
+                                    <ThemeProvider theme={theme}>
+                                    <Grid item xs={12}>
+                                      <TextField
+                                        margin="normal"
+                                        required
+                                        fullWidth
+                                        id="Phone"
+                                        label={t('login.LABEL_PHONE')}
+                                        name="Phone"
+                                        autoComplete="Phone"
+                                        variant="outlined"
+                                        autoFocus
+                                        onChange={handleChangePhone}
+                                        InputProps={{
+                                        
+                                          startAdornment: <InputAdornment position="start"><PhoneOutlinedIcon /></InputAdornment>,
+                                        }}
+                                      />
+                                      </Grid>
+                                        <Grid item xs={12}>
+                                      <TextField
+                                        variant="outlined"
+                                        required
+                                        fullWidth
+                                        name="password"
+                                        value={values.Password}
+                                        label={t('login.LABEL_PASS')}
+                                        type="password"
+                                        id="password"
+                                        autoComplete="current-password"
+                                        type={values.showPassword ? 'text' : 'password'}
+                                        InputProps={{
+                                          startAdornment: <InputAdornment position="start">
+                                          <IconButton
+                                            aria-label="toggle password visibility"
+                                            onClick={handleClickShowPassword}
+                                            onMouseDown={handleMouseDownPassword}
+                                          >
+                                          {values.showPassword ? <Visibility /> : <VisibilityOff />}
+                                          </IconButton>
+                                        </InputAdornment>,
+                                        }}
+                                      />
+                                          <Link href="/forgot" variant="body2" className={classes.colorLink}>
+                                            {t('login.F_MDP')}
+                                          </Link>
+                                        
+                                      </Grid>
+                                      <ColorButton
+                                        fullWidth
+                                        variant="contained"
+                                        color="primary"
+                                        className={classes.submit}
+                                        onClick ={send}
+                                      >
+                                        {t('login.BTN_LOGIN')}
+                                      </ColorButton>
+                                      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+                                        <Alert onClose={handleClose} severity="error" >
+                                          {mssg}
+                                        </Alert>
+                                    </Snackbar>
+                                      {/* <Grid container > */}
+                                        <Grid item>
+                                          <Link href="/account/register" variant="body2" className={classes.colorLink}>
+                                            {t('login.TO_SIGNUP')}
+                                          </Link>
+                                        </Grid>
+                                      {/* </Grid> */}
+                                      
+                                      </ThemeProvider>
+                                    </form>
+                                  </div>
+                                  <Box mt={5}>
+                                        <Copyright />
+                                  </Box>
+                                  </ContainerR>
+                            </div>
+
+                            <div className="col-lg-6 col-md-12 mt-5">
+                                <div className="new-customer-content">
+                                    <span>{t('login.OPEN')}</span>
+                                      <p>{t('login.TEXT')}</p>
+                                    <Link href="/account/register" >
+                                        <a className="btn btn-light">{t('login.OPEN')}</a>
+                                    </Link>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </React.Fragment>
   );
       }
 else
 {
   return (
-    <ContainerR  maxWidth="xs"  component={Paper} elevation={5}> 
-      <CssBaseline />
-      <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-        تسجيل الدخول
-        </Typography>
-         <form className={classes.form} noValidate>
-         <ThemeProvider theme={theme}>
-         <Grid item xs={12}>
-           <TextField
-             margin="normal"
-             required
-             fullWidth
-             id="Phone"
-             label="رقم الهاتف"
-             name="Phone"
-             autoComplete="Phone"
-             variant="outlined"
-             autoFocus
-            onChange={handleChangePhone}
-             className={classes.test}
-             InputProps={{
-              
-              startAdornment: <InputAdornment position="start"><PhoneOutlinedIcon /></InputAdornment>,
-            }}
-            inputProps={{
-              style: { textAlign: "right" },
-            }}
-           />
-           </Grid>
-              <Grid item xs={12}>
-           <TextField
-             variant="outlined"
-             required
-             fullWidth
-             name="password"
-             value={values.Password}
-             label="كلمة السر"
-             type="password"
-             id="password"
-             autoComplete="current-password"
-             type={values.showPassword ? 'text' : 'password'}
-             InputProps={{
-               startAdornment: <InputAdornment position="start">
-               <IconButton
-                 aria-label="toggle password visibility"
-                 onClick={handleClickShowPassword}
-                 onMouseDown={handleMouseDownPassword}
-               >
-               {values.showPassword ? <Visibility /> : <VisibilityOff />}
-               </IconButton>
-             </InputAdornment>,
-             }}
-             inputProps={{
-              style: { textAlign: "right" },
-            }}
-             onChange={handleChangePswd}
-           />
-           </Grid>
-           <ColorButton
-             fullWidth
-             variant="contained"
-             color="primary"
-             className={classes.submit}
-             onClick ={send}
-           >
-             تسجيل الدخول
-           </ColorButton>
-           <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-             <Alert onClose={handleClose} severity="error" >
-                {mssg}
-             </Alert>
-         </Snackbar>
-           <Grid container >
-             <Grid item xs >
-               <Link href="/forgot" variant="body2" className={classes.colorLink}>
-               نسيت كلمة السر؟
-               </Link>
-             </Grid>
-             <Grid item>
-               <Link href="/account/register" variant="body2" className={classes.colorLink}>
-                 {"لا تملك حساب؟ أفتح حساب الأن"}
-               </Link>
-             </Grid>
-           </Grid>
-           </ThemeProvider>
-         </form>
-       </div>
-       <Box mt={5}>
-             <Copyrightar/>
-           </Box>
-       </ContainerR>
+<React.Fragment>
+    <section className="login-area">
+        <div className="container">
+            <div className="row">
+                <div className="col-lg-6 col-md-12 mt-5">
+                    <div className="new-customer-content-ar">
+                        <span >قم بإنشاء حساب</span>
+                        <p>قم بالتسجيل للحصول على حساب مجاني في متجرنا. تسجيل سريع وسهل. يسمح لك أن تكون قادراً على الطلب من متجرنا. لبدء التسوق ، انقر فوق تسجيل.</p>
+                        <Link href="/account/register" >
+                            <a className="btn btn-light btn-a">إنشاء حساب</a>
+                        </Link>
+                    </div>
+                </div>
+                <div className="col-lg-6 col-md-12">
+                    <ContainerR  maxWidth="xs"  component={Paper} elevation={5}> 
+                    <CssBaseline />
+                    <div className={classes.paper}>
+                        <Avatar className={classes.avatar}>
+                        <LockOutlinedIcon />
+                        </Avatar>
+                        <Typography component="h1" variant="h5">
+                        تسجيل الدخول
+                        </Typography>
+                        <form className={classes.form} noValidate>
+                        <ThemeProvider theme={theme}>
+                        <Grid item xs={12}>
+                        <TextField
+                            margin="normal"
+                            required
+                            fullWidth
+                            id="Phone"
+                            label="رقم الهاتف"
+                            name="Phone"
+                            autoComplete="Phone"
+                            variant="outlined"
+                            autoFocus
+                            onChange={handleChangePhone}
+                            className={classes.test}
+                            InputProps={{
+                            
+                            startAdornment: <InputAdornment position="start"><PhoneOutlinedIcon /></InputAdornment>,
+                            }}
+                            inputProps={{
+                            style: { textAlign: "right" },
+                            }}
+                        />
+                        </Grid>
+                            <Grid item xs={12}>
+                        <TextField
+                            variant="outlined"
+                            required
+                            fullWidth
+                            name="password"
+                            value={values.Password}
+                            label="كلمة السر"
+                            type="password"
+                            id="password"
+                            autoComplete="current-password"
+                            type={values.showPassword ? 'text' : 'password'}
+                            InputProps={{
+                            startAdornment: <InputAdornment position="start">
+                            <IconButton
+                                aria-label="toggle password visibility"
+                                onClick={handleClickShowPassword}
+                                onMouseDown={handleMouseDownPassword}
+                            >
+                            {values.showPassword ? <Visibility /> : <VisibilityOff />}
+                            </IconButton>
+                            </InputAdornment>,
+                            }}
+                            inputProps={{
+                            style: { textAlign: "right" },
+                            }}
+                            onChange={handleChangePswd}
+                        />
+                        </Grid>
+                        <ColorButton
+                            fullWidth
+                            variant="contained"
+                            color="primary"
+                            className={classes.submit}
+                            onClick ={send}
+                        >
+                            تسجيل الدخول
+                        </ColorButton>
+                        <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+                            <Alert onClose={handleClose} severity="error" >
+                                {mssg}
+                            </Alert>
+                        </Snackbar>
+                        <Grid container >
+                            <Grid item xs >
+                            <Link href="/forgot" variant="body2" className={classes.colorLink}>
+                            نسيت كلمة السر؟
+                            </Link>
+                            </Grid>
+                            <Grid item>
+                            <Link href="/account/register" variant="body2" className={classes.colorLink}>
+                                {"لا تملك حساب؟ أفتح حساب الأن"}
+                            </Link>
+                            </Grid>
+                        </Grid>
+                        </ThemeProvider>
+                        </form>
+                    </div>
+                    <Box mt={5}>
+                            <Copyrightar/>
+                    </Box>
+                </ContainerR>
+                </div>
+            </div>
+        </div>
+    </section>
+</React.Fragment>
  );
 }
 }

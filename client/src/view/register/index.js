@@ -7,7 +7,6 @@ import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
 import PersonAddOutlinedIcon from '@material-ui/icons/PersonAddOutlined';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
@@ -26,6 +25,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import { useTranslation } from 'react-i18next';
+
 var mssg = null
 var data = []
 var form={
@@ -35,14 +35,15 @@ var form={
   cpswd : null,
   id_reg :null
 }
-//import { Redirect } from "react-router-dom";
+
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 function Copyright() {
+  const { t } = useTranslation();
   return (
     <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
+      {t('copyright')}{ '© '}
       <Link color="inherit" href="https://material-ui.com/">
         Agri Edge
       </Link>{' '}
@@ -51,6 +52,7 @@ function Copyright() {
     </Typography>
   );
 }
+
 function Copyrightar() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -89,7 +91,7 @@ const ColorButton = withStyles(theme => ({
 
 const useStyles = makeStyles(theme => ({
   paper: {
-    marginTop: theme.spacing(6),
+    marginTop: theme.spacing(3),
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -122,7 +124,6 @@ const useStyles = makeStyles(theme => ({
 export default function SignUp(props) {
   
   const [open, setOpen] = React.useState(false);
-
   const {t} = useTranslation();
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
@@ -177,7 +178,7 @@ export default function SignUp(props) {
        event.target.style.color= "green"
         form.pswd =event.target.value
     };
-const handleChangePhone =event =>
+  const handleChangePhone =event =>
     {
       const t = event.target.value
       for(var i=0;i<t.length;i++)
@@ -297,7 +298,7 @@ else
   {
       if(r.data)
       {
-        if(localStorage.getItem('langue')  == 'en')
+        if(localStorage.getItem('langue')  !== 'ar')
         {
           for(var i = 0;i <r.data.length ;i++)
           {
@@ -336,17 +337,16 @@ else
         }
       }
   }) 
- if(localStorage.getItem('langue') === 'en') {
+ if(localStorage.getItem('langue') !== 'ar') {
    return (
       <ContainerR  maxWidth="xs"  component={Paper} elevation={5}> 
       <CssBaseline />
-      
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
           <PersonAddOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign up
+          {t('register.h1')}
         </Typography>
         <form className={classes.form} noValidate>
           <Grid container spacing={2}>
@@ -358,7 +358,7 @@ else
                     autoFocus
                     fullWidth
                     id="fullName"
-                    label="Full Name"
+                    label={t('register.LABEL_NAME')}
                     name="fullName"
                     autoComplete="fname"
                     onChange={handleChangeName}
@@ -373,7 +373,7 @@ else
                   required
                   fullWidth
                   id="phone"
-                  label="Phone Number"
+                  label={t('register.LABEL_PHONE')}
                   name="phone"
                   autoComplete="phone"
                   InputProps={{
@@ -389,7 +389,7 @@ else
                   fullWidth
                   name="password"
                   value={values.Password}
-                  label="Password"
+                  label={t('register.LABEL_PASS')}
                   type="password"
                   id="password"
                   autoComplete="current-password"
@@ -414,7 +414,7 @@ else
                   required
                   fullWidth
                   name="Cpassword"
-                  label="Confirmation Password"
+                  label={t('register.LABEL_CPASS')}
                   type="password"
                   id="Cpassword"
                   value={values.Password}
@@ -438,9 +438,9 @@ else
                 />
               </Grid>
               <FormControl variant="outlined"  className={classes.formControl}>
-                <InputLabel id="demo-simple-select-filled-label">Region*</InputLabel>
+                <InputLabel id="demo-simple-select-filled-label">{t('register.LABEL_REG')}*</InputLabel>
                 <Select
-                  label="Region"
+                  label="region*"
                   labelId="demo-simple-select-filled-label"
                   id="demo-simple-select-filled"
                   value={region}
@@ -458,7 +458,7 @@ else
               className={classes.submit}
               onClick={register}
             >
-              Sign Up
+              {t('register.BTN_SIGNUP')}
           </ColorButton>
           <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
               <Alert onClose={handleClose} severity="error" >
@@ -467,16 +467,14 @@ else
           </Snackbar>
           <Grid container justify="flex-end">
             <Grid item>
-                <Link href="/account/login" variant="body2" className={classes.colorLink}>
-                 {"I am already a member"}
-                </Link>
+              <Link href="/account/login" variant="body2" className={classes.colorLink}>
+                {t('register.TO_SIGNIN')}
+              </Link>
             </Grid>
           </Grid>
         </form>
       </div>
-      <Box mt={5}>
         <Copyright />
-      </Box>
     </ContainerR>
   );}
   else
@@ -490,7 +488,7 @@ else
           <PersonAddOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-        أفتح حساب
+          أفتح حساب
         </Typography>
         <form className={classes.form} noValidate>
           <Grid container spacing={2}>
@@ -630,9 +628,7 @@ else
           </Grid>
         </form>
       </div>
-      <Box mt={5}>
-        <Copyrightar />
-      </Box>
+      <Copyrightar />
     </ContainerR>
   );
   }

@@ -4,13 +4,13 @@ import Backend from 'i18next-xhr-backend';
 import { initReactI18next } from 'react-i18next';
 
 
-if(localStorage.getItem('langue') === 'en' || localStorage.getItem('langue') === 'ar' )
+if(localStorage.getItem('langue') === 'en' || localStorage.getItem('langue') === 'ar' || localStorage.getItem('langue') === 'fr')
   var  fallbackLng = localStorage.getItem('langue');
 else
 {
   var fallbackLng = ['en'];
 }
-const availableLanguages = ['en', 'ar'];
+const availableLanguages = ['en', 'ar','fr'];
 
 const options = {
   // order and from where user language should be detected

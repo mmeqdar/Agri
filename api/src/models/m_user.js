@@ -74,6 +74,7 @@ class User {
                     
                     this.database.query(USERS.ADD_USER,[name,phone,hash_pass,region])
                     .then((r)=>{
+                        console.table(r)
                         if(r.err)
                         {
                             resolve({status :'failure',data :"GENERAL"})
@@ -290,13 +291,26 @@ forgot1(id,code,phone)
             this.database.query(USERS.GET_REGION)
             .then((r)=>
             {
-                console.log("------modele--------")
-                console.table(r)
                 resolve(r)
             })
             .catch((err)=>
             {
                 console.log(err)
+                resolve({status :'failure',data :"GENERAL"})
+            })
+        ))
+    }
+    /*---------------------categorie------------------*/
+    getCatergorie()
+    {
+        return new Promise((resolve, reject) => ( 
+            this.database.query(USERS.GET_CATEGOY)
+            .then((r)=>
+            {
+                resolve(r)
+            })
+            .catch(()=>
+            {
                 resolve({status :'failure',data :"GENERAL"})
             })
         ))

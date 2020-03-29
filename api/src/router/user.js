@@ -264,15 +264,23 @@ const getRegion =  router.post('/getRegion', function (req, res) {
     user.getRegion()
     .then((r)=>
     {
-        console.log("------rootteee--------")
-        console.table(r)
         res.send(r)
     })
     .catch((err)=>{
         res.send({status :'failure',data :"GENERAL"})
     })
 });
-
+const getCatergorie =  router.post('/getCatergorie', function (req, res) {
+    const user = new User()
+    user.getCatergorie()
+    .then((r)=>
+    {
+        res.send(r)
+    })
+    .catch((err)=>{
+        res.send({status :'failure',data :"GENERAL"})
+    })
+});
 module.exports = login
 module.exports = register
 module.exports = confirmation
@@ -280,3 +288,4 @@ module.exports = forgot
 module.exports = forgot1
 module.exports = updatepswd
 module.exports = getRegion
+module.exports = getCatergorie

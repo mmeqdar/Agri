@@ -1,5 +1,3 @@
-
-
 import React from 'react';
 import { makeStyles , withStyles} from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -20,6 +18,7 @@ import { grey, green} from '@material-ui/core/colors';
 import { NavLink } from 'react-router-dom';
 import logo from  "../../images/logo.jpeg";
 import i18next from 'i18next';
+import { useTranslation } from 'react-i18next';
 
 const NavBar = withStyles(theme => ({
   root: {
@@ -65,6 +64,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function PrimarySearchAppBar() {
 
+  const {t} = useTranslation();
   
   const classes = useStyles();
   const [languageAnchorEl, setLanguageAnchorEl] = React.useState(null);
@@ -102,14 +102,11 @@ export default function PrimarySearchAppBar() {
     setLanguageAnchorEl(null);
     handleMobileMenuClose();
   };
-  const arabe = () => {
-    i18next.changeLanguage('ar')
-    localStorage.setItem('langue', 'ar')
+  const changeL = (lng) => {
+    i18next.changeLanguage(lng)
+    localStorage.setItem('langue', lng)
   }
-  const english = () => {
-    i18next.changeLanguage('en')
-    localStorage.setItem('langue', 'en')
-  }
+
   const LmenuId = 'primary-search-language-menu';
   const renderLanguageMenu = (
     <Menu
@@ -121,11 +118,13 @@ export default function PrimarySearchAppBar() {
       open={isLanguageMenuOpen}
       onClose={handleLanguageMenuClose}
     >
-      <MenuItem onClick={() => {handleLanguageMenuClose(); arabe()}} className={classes.btn}>العربية</MenuItem>
-      <MenuItem onClick={() => {handleLanguageMenuClose(); english()}} className={classes.btn}>English</MenuItem>
+      <MenuItem onClick={() => {handleLanguageMenuClose(); changeL('ar')}} className={classes.btn}>العربية</MenuItem>
+      <MenuItem onClick={() => {handleLanguageMenuClose(); changeL('en')}} className={classes.btn}>English</MenuItem>
+      <MenuItem onClick={() => {handleLanguageMenuClose(); changeL('fr')}} className={classes.btn}>Français</MenuItem>
     </Menu>
   );
-if (localStorage.getItem('langue')  === 'en') {
+
+  if (localStorage.getItem('langue')  !== 'ar'){
     const menuId = 'primary-search-account-menu';
     const renderMenu = (
       <Menu
@@ -138,10 +137,10 @@ if (localStorage.getItem('langue')  === 'en') {
         onClose={handleMenuClose}
       >
         <a href="/account/login" className={classes.btn} activeClassName={classes.navbarLinkActive}>
-          <MenuItem onClick={handleMenuClose} >Login</MenuItem>
+          <MenuItem onClick={handleMenuClose} >{t('nav.LOGIN')}</MenuItem>
         </a>
         <a href="/account/register" className={classes.btn} activeClassName={classes.navbarLinkActive}>
-          <MenuItem onClick={handleMenuClose} >Rogister</MenuItem>
+          <MenuItem onClick={handleMenuClose} >{t('nav.REGISTER')}</MenuItem>
         </a>
       </Menu>
     );
@@ -157,26 +156,27 @@ if (localStorage.getItem('langue')  === 'en') {
         open={isMobileMenuOpen}
         onClose={handleMobileMenuClose}
       >
-        <NavLink exact to="/" className={classes.btn} activeClassName={classes.navbarLinkActive}>
+        <a href="/" className={classes.btn} activeClassName={classes.navbarLinkActive}>
           <MenuItem >
-            <HomeOutlinedIcon /> <Box fontWeight="fontWeightBold" >Home</Box>
+            <HomeOutlinedIcon /> <Box fontWeight="fontWeightBold" >{t('nav.HOME')}</Box>
           </MenuItem>
-        </NavLink>
+        </a>
 
-        <NavLink  to="/account" className={classes.btn} activeClassName={classes.navbarLinkActive}>
-          <MenuItem onClick={handleProfileMenuOpen} >
-            <PersonOutlineOutlinedIcon /><Box fontWeight="fontWeightBold">Account</Box><ArrowDropDownOutlinedIcon />
+        <a href="/account/login" className={classes.btn} activeClassName={classes.navbarLinkActive}>
+          <MenuItem  >
+          {/* onClick={handleProfileMenuOpen} */}
+            <PersonOutlineOutlinedIcon /><Box fontWeight="fontWeightBold">{t('nav.ACCOUNT')}</Box><ArrowDropDownOutlinedIcon />
           </MenuItem>
-        </NavLink>
+        </a>
 
         <NavLink  to="/viewcart" className={classes.btn} activeClassName={classes.navbarLinkActive}>
           <MenuItem>
-            <ShoppingCartOutlinedIcon /> <Box fontWeight="fontWeightBold" >View Cart(0)</Box>
+            <ShoppingCartOutlinedIcon /> <Box fontWeight="fontWeightBold" >{t('nav.CART')}(0)</Box>
           </MenuItem>
         </NavLink>
 
         <MenuItem className={classes.btn} onClick={handleLanguageMenuOpen}>
-          <TranslateOutlinedIcon /> <Box fontWeight="fontWeightBold">Language</Box><ArrowDropDownOutlinedIcon />
+          <TranslateOutlinedIcon /> <Box fontWeight="fontWeightBold">{t('nav.LANGUAGE')}</Box><ArrowDropDownOutlinedIcon />
         </MenuItem>
       </Menu>
     );
@@ -190,15 +190,15 @@ if (localStorage.getItem('langue')  === 'en') {
             </Typography>
             <div className={classes.grow} />
             <div className={classes.sectionDesktop}>
-              <NavLink exact to="/" className={classes.btn} activeClassName={classes.navbarLinkActive}>
+              <a href="/" className={classes.btn} activeClassName={classes.navbarLinkActive}>
                 <Button
                   edge="end"
                   aria-haspopup="true"
                   color="inherit"
                 >
-                  <Box fontWeight="fontWeightBold">Home</Box>
+                  <Box fontWeight="fontWeightBold">{t('nav.HOME')}</Box>
                 </Button> 
-              </NavLink>
+              </a>
 
               <NavLink  to="/account" className={classes.btn} activeClassName={classes.navbarLinkActive}>
                 <Button
@@ -208,7 +208,7 @@ if (localStorage.getItem('langue')  === 'en') {
                   color="inherit"
                   onClick={handleProfileMenuOpen }
                 >
-                  <Box fontWeight="fontWeightBold">Account</Box><ArrowDropDownOutlinedIcon />
+                  <Box fontWeight="fontWeightBold">{t('nav.ACCOUNT')}</Box><ArrowDropDownOutlinedIcon />
                 </Button> 
               </NavLink>
 
@@ -218,7 +218,7 @@ if (localStorage.getItem('langue')  === 'en') {
                   aria-haspopup="true"
                   color="inherit"
                 >
-                  <ShoppingCartOutlinedIcon /> <Box fontWeight="fontWeightBold" >View Cart(0)</Box>
+                  <ShoppingCartOutlinedIcon /> <Box fontWeight="fontWeightBold" >{t('nav.CART')}(0)</Box>
                 </Button>
               </NavLink>
 
@@ -231,7 +231,7 @@ if (localStorage.getItem('langue')  === 'en') {
                 onClick={handleLanguageMenuOpen }
                 className={classes.btn}
               >
-                <TranslateOutlinedIcon /> <Box fontWeight="fontWeightBold">Language</Box><ArrowDropDownOutlinedIcon />
+                <TranslateOutlinedIcon /> <Box fontWeight="fontWeightBold">{t('nav.LANGUAGE')}</Box><ArrowDropDownOutlinedIcon />
               </Button>
             </div>
             <div className={classes.sectionMobile}>
@@ -253,7 +253,7 @@ if (localStorage.getItem('langue')  === 'en') {
       </div>
     );
   }
-  else if (localStorage.getItem('langue')  === 'ar') {
+  else {
     const menuId = 'primary-search-account-menu';
     const renderMenu = (
       <Menu
@@ -285,11 +285,11 @@ if (localStorage.getItem('langue')  === 'en') {
         open={isMobileMenuOpen}
         onClose={handleMobileMenuClose}
       >
-        <NavLink exact to="/" className={classes.btn} activeClassName={classes.navbarLinkActive}>
+        <a href="/" className={classes.btn} activeClassName={classes.navbarLinkActive}>
           <MenuItem >
             <HomeOutlinedIcon /> <Box fontWeight="fontWeightBold" >الرئيسية</Box>
           </MenuItem>
-        </NavLink>
+        </a>
 
         <NavLink  to="/account" className={classes.btn} activeClassName={classes.navbarLinkActive}>
           <MenuItem onClick={handleProfileMenuOpen} >
@@ -308,79 +308,77 @@ if (localStorage.getItem('langue')  === 'en') {
         </MenuItem>
       </Menu>
     );
-
-
-return (
-    <div className={classes.grow}>
-      <NavBar position="static">
-        {/* <Toolbar width= "100%"> */}
-        <Box display="flex" flexDirection="row-reverse" style={{padding: "1% 3% 1% 1%"}}>
-          <Typography style={{ textAlign: "right"}} className={classes.grow}>
-              <img src={logo} alt="Logo" className={classes.image}/>
-          </Typography>
-          <div className={classes.grow} />
-          <div className={classes.sectionDesktop}  style={{paddingTop: "3px"}}>
-            <NavLink to="#" className={classes.btn} activeClassName={classes.navbarLinkActive}>
-              <Button
-                edge="end"
-                aria-label="language of current user"
+  return (
+      <div className={classes.grow}>
+        <NavBar position="static">
+          {/* <Toolbar width= "100%"> */}
+          <Box display="flex" flexDirection="row-reverse" style={{padding: "1% 3% 1% 1%"}}>
+            <Typography style={{ textAlign: "right"}} className={classes.grow}>
+                <img src={logo} alt="Logo" className={classes.image}/>
+            </Typography>
+            <div className={classes.grow} />
+            <div className={classes.sectionDesktop}  style={{paddingTop: "3px"}}>
+              <NavLink to="#" className={classes.btn} activeClassName={classes.navbarLinkActive}>
+                <Button
+                  edge="end"
+                  aria-label="language of current user"
+                  aria-haspopup="true"
+                  color="inherit"
+                  aria-controls={LmenuId}
+                  onClick={handleLanguageMenuOpen }
+                  className={classes.btn}
+                >
+                  < ArrowDropDownOutlinedIcon/> <Box fontWeight="fontWeightBold">اللغة</Box>< TranslateOutlinedIcon/>
+                </Button>
+              </NavLink>
+              <NavLink  to="/cc" className={classes.btn} activeClassName={classes.navbarLinkActive}>
+                <Button
+                  edge="end"
+                  aria-haspopup="true"
+                  color="inherit"
+                >
+                  <Box fontWeight="fontWeightBold" >عرض السلة(0)0</Box><ShoppingCartOutlinedIcon />
+                </Button>
+              </NavLink>
+              <NavLink  to="/account" className={classes.btn} activeClassName={classes.navbarLinkActive}>
+                <Button
+                  edge="end"
+                  aria-controls={menuId}
+                  aria-haspopup="true"
+                  onClick={handleProfileMenuOpen}
+                  color="inherit"
+                >
+                  <ArrowDropDownOutlinedIcon /><Box fontWeight="fontWeightBold">الحساب</Box>
+                </Button> 
+              </NavLink>
+              <a href="/" className={classes.btn} activeClassName={classes.navbarLinkActive}>
+                <Button
+                  edge="end"
+                  aria-haspopup="true"
+                  color="inherit"
+                >
+                  <Box fontWeight="fontWeightBold">الرئيسية</Box>
+                </Button> 
+              </a>
+            </div>
+            <div className={classes.sectionMobile} >
+              <IconButton
+                aria-label="show more"
+                aria-controls={mobileMenuId}
                 aria-haspopup="true"
-                color="inherit"
-                aria-controls={LmenuId}
-                onClick={handleLanguageMenuOpen }
-                className={classes.btn}
-              >
-                < ArrowDropDownOutlinedIcon/> <Box fontWeight="fontWeightBold">اللغة</Box>< TranslateOutlinedIcon/>
-              </Button>
-            </NavLink>
-            <NavLink  to="/cc" className={classes.btn} activeClassName={classes.navbarLinkActive}>
-              <Button
-                edge="end"
-                aria-haspopup="true"
+                onClick={handleMobileMenuOpen}
                 color="inherit"
               >
-                 <Box fontWeight="fontWeightBold" >عرض السلة(0)0</Box><ShoppingCartOutlinedIcon />
-              </Button>
-            </NavLink>
-            <NavLink  to="/account" className={classes.btn} activeClassName={classes.navbarLinkActive}>
-              <Button
-                edge="end"
-                aria-controls={menuId}
-                aria-haspopup="true"
-                onClick={handleProfileMenuOpen}
-                color="inherit"
-              >
-                <ArrowDropDownOutlinedIcon /><Box fontWeight="fontWeightBold">الحساب</Box>
-              </Button> 
-            </NavLink>
-            <NavLink exact to="/" className={classes.btn} activeClassName={classes.navbarLinkActive}>
-              <Button
-                edge="end"
-                aria-haspopup="true"
-                color="inherit"
-              >
-                <Box fontWeight="fontWeightBold">الرئيسية</Box>
-              </Button> 
-            </NavLink>
-          </div>
-          <div className={classes.sectionMobile} >
-            <IconButton
-              aria-label="show more"
-              aria-controls={mobileMenuId}
-              aria-haspopup="true"
-              onClick={handleMobileMenuOpen}
-              color="inherit"
-            >
-              <MoreIcon />
-            </IconButton>
-          </div>
-          </Box>
-        {/* </Toolbar> */}
-      </NavBar>
-      {renderMobileMenu}
-      {renderMenu}
-      {renderLanguageMenu}
-    </div>
-  );
+                <MoreIcon />
+              </IconButton>
+            </div>
+            </Box>
+          {/* </Toolbar> */}
+        </NavBar>
+        {renderMobileMenu}
+        {renderMenu}
+        {renderLanguageMenu}
+      </div>
+    );
   }
 }
