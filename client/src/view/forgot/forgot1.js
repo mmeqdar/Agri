@@ -103,7 +103,11 @@ const useStyles = makeStyles(theme => ({
 
 export default function SignUp(props) {
   if(!props || !props.location || !props.location.state || !props.location.state.phone )
-    props.history.push('/account/login')
+    props.history.push('/login')
+  axios.post('http://localhost:3001/check_token',{token:localStorage.getItem('token')}).then((r)=>{
+      if(r.data.data !== "-2")
+          props.history.push("/") 
+  })
   const classes = useStyles();
   const {t} = useTranslation();
   const [open, setOpen] = React.useState(false);

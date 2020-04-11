@@ -21,7 +21,8 @@ import MuiAlert from '@material-ui/lab/Alert';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import PhoneOutlinedIcon from '@material-ui/icons/PhoneOutlined';
 import { useTranslation } from 'react-i18next';
-import './index.css'
+import './index.css';
+import myInitObject from './../../const'
 var mssg = null
 var form={
   phone:null,
@@ -113,6 +114,14 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function SignInSide(props) {
+  
+  /*var { user } = props
+  console.log(user)*/
+  axios.post('http://localhost:3001/check_token',{token:localStorage.getItem('token')}).then((r)=>{
+    console.log(r.data.data)
+      if(r.data.data !== "-2")
+            props.history.push("/") 
+    })
   const { t } = useTranslation();
   const [open, setOpen] = React.useState(false);
 
@@ -184,7 +193,18 @@ export default function SignInSide(props) {
               {
                   if(r.data.status === "success")
                   {
-                      props.history.push("/account/register") 
+                  /* window.$user = r.data.data
+                  console.log("window : "+r.data.data)*/
+                      localStorage.setItem('token',r.data.token)
+                      localStorage.setItem('type',r.data.type)
+                      if(r.data.data == 1)
+                        {
+                          props.history.push("/") 
+                        }
+                      else
+                        {
+                          props.history.push("/home1")
+                        }
                   }
                   else
                   {

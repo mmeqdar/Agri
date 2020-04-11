@@ -12,6 +12,7 @@
         "REGISTER_PHONE": "PHONE Already Exists",
         "CODE": " Wrong CODE",
         "REGION":"Wrong Region",
+        "TYPE":"Wrong Type",
         "PSWD_CONFI":"Confirmation Password incorrect",
         "LABEL_PHONE":"Phone Number",
         "LABEL_PASS":"Password",
@@ -29,9 +30,13 @@
         "LABEL_PASS":"Password",
         "LABEL_CPASS":"Confirmation Password",
         "LABEL_REG":"Region",
+        "LABEL_TYPE":"account type",
+        "VENDEUR":"Seller",
+        "ACHETEUR":"Buyer",
         "BTN_SIGNUP":"Sign Up",
         "TO_SIGNIN":"I am already a member",
         "h1":"Sign Up"
+
     },
     "home":
     {
@@ -39,14 +44,19 @@
         "BUY":"Buy",
         "KG":"KG",
         "WELCOME":"welcome",
-        "CATEGO":"all categories",
-        "REGION":"all the regions"
+        "CATEGO":"Categories",
+        "REGION":"Regions",
+        "PRIX":"Price",
+        "QUAN":"Amount",
+        "PHO":"Phone",
+        "CAT":"Category",
+        "ADD":" Add to Cart"
     },
     "nav":
     {
         "HOME":"Home",
         "ACCOUNT":"Account",
-        "CART":"View Cart",
+        "CART":"Ad",
         "LANGUAGE":"Language",
         "LOGIN":"Login",
         "REGISTER":"Register"

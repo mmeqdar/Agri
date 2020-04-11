@@ -18,6 +18,7 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import {useDropzone} from 'react-dropzone';
 import { useTranslation } from 'react-i18next';
+import './index.css';
 
 var msg = null
 var status = 'error'
@@ -60,7 +61,7 @@ paper: {
     alignItems: 'center',
 },
 form: {
-    width: '70%', // Fix IE 11 issue.
+    width: '100%', // Fix IE 11 issue.
     marginTop: theme.spacing(3),
     
 },
@@ -76,7 +77,7 @@ formControl: {
 h1: {
     padding: "5px", 
     backgroundColor: green[500],
-    width: "100%", 
+    width: "150%", 
     textAlign:"center",
     color: 'white'
 },
@@ -120,7 +121,16 @@ const img = {
     height: '100%'
 };
 
-export default function Annonce() {
+export default function Annonce(props) {
+    axios.post('http://localhost:3001/check_token',{token:localStorage.getItem('token')}).then((r)=>{
+        if(r.data.data == -2)
+            props.history.push("/login") 
+    })
+    axios.post('http://localhost:3001/check_type',{type:localStorage.getItem('type')}).then((r)=>{
+        if(r.data.data == 1)
+            props.history.push("/demande")
+        
+    })
     const { t } = useTranslation();
     if(localStorage.getItem('langue')  === 'ar')
     {
@@ -248,7 +258,6 @@ export default function Annonce() {
         }
         else if(quantity <= 0)
         {
-            alert("tsst")
             msg =  t('annonce.ERR_QUANTITY')
             setOpen(true);
         }
@@ -277,6 +286,7 @@ export default function Annonce() {
             data.append('prix', prix)
             data.append('desc', description)
             data.append('quantity', quantity)
+            data.append('type', 0)
             const con = { headers: { 'Content-Type': 'multipart/form-data; boundary=something' } }
             axios.post('http://localhost:3001/annonce',data,con)
             .then((r)=>
@@ -303,8 +313,9 @@ export default function Annonce() {
         <CssBaseline />
         <div className={classes.paper}>
           <Typography component="h1" variant="h5" className={classes.h1} >
-           {t('annonce.ADD_AD')}
+           <span className="addd">{t('annonce.ADD_AD')}</span>
           </Typography>
+          <div className="divform">
           <form className={classes.form}  noValidate>
             <Grid container spacing={2}>
               <ThemeProvider theme={theme}>
@@ -396,6 +407,7 @@ export default function Annonce() {
                 </Alert>
             </Snackbar>
           </form>
+          </div>
         </div>
       </Container>
     );

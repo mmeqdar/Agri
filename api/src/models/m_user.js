@@ -5,9 +5,10 @@ const bcrypt = require('bcrypt');
 const spliceString = require('splice-string');
 const saltRounds = 10;
 const Nexmo = require('nexmo');
+const jwt = require('jsonwebtoken');
 const nexmo = new Nexmo({
-  apiKey: 'f4ffcff3',
-  apiSecret: 'wCkkhwJTqa5MJ1dQ',
+  apiKey: '9e22b6f1',
+  apiSecret: 'GEZ3S1EYtmBGDPoB',
 },{debug:true});
 
 
@@ -30,7 +31,10 @@ class User {
                     {
                         if(r[0].confirmation != 0)
                         {
-                            resolve({status :'success',data :"done"})
+                            console.log(r[0].type)
+                            const token = jwt.sign({ id: r[0].id_user },'mmeqfall')
+                            const type = jwt.sign({ type: r[0].type },'mmeqfall')
+                            resolve({status :'success',data:r[0].type,token:token,type:type})
                         }
                         else
                         {

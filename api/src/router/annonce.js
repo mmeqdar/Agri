@@ -29,52 +29,108 @@ let err
 });
 
 //------------------Add Pic-------------------
-  const annonce = router.post('/annonce', upload.array('pic',6),async (req, res) => {
-    var id_annonce
-    const annonce = new Annonce()
-    console.log(req.body.quantity)
-    if(isEmpty(req.body.category) || isEmpty(req.body.quantity) || isEmpty(req.body.prix) || isEmpty(req.body.desc) || req.files.length == 0)
-    {
-        console.log(ERRORS.DATA_MISSING)
-        res.send({status :'failure',data :"DATA_MISSING"})
-    }
-    else if(!Number.isInteger(parseInt(req.body.quantity)) || req.body.quantity <= 0 )
-    {
-        res.send({status :'failure',data :"QUANTITY_WRONG"})
-    }
-    else if(!Number.isInteger(parseInt(req.body.prix)) || req.body.prix <= 0)
-    {
-        res.send({status :'failure',data :"PRIX_WRONG"})
-    }
-    else if(req.body.desc.length > 200)
-    {
-        res.send({status :'failure',data :"DES_WRONG"})
-    }
-    else
-    {
-        annonce.annonce(req.body.desc, req.body.quantity, req.body.prix, req.body.category)
-        .then((r)=>
-        {
-            id_annonce = r.insertId 
-            for(var i = 0; i < req.files.length; i++)
-            {
-                annonce.pic(req.files[i].filename,id_annonce,i)
-                .then(()=>
-                {
-                    //res.send(r)
-                })
-                /*.catch((err)=>{
-                    res.send({status :'failure',data :"GENERAL"})
-                })*/
-            }
-            res.send({status :'success',data : r })
-        })
-        .catch((err)=>{
-            res.send({status :'failure',data :"GENERAL"})
-        })
-    }
-    
-  })
+//----Offre-------/
+const annonce = router.post('/annonce', upload.array('pic',6),async (req, res) => {
+  var id_annonce
+  var type_annonce = 1
+  const annonce = new Annonce()
+  if(isEmpty(req.body.category) || isEmpty(req.body.quantity) || isEmpty(req.body.prix) || isEmpty(req.body.desc) || req.files.length == 0)
+  {
+      console.log(ERRORS.DATA_MISSING)
+      res.send({status :'failure',data :"DATA_MISSING"})
+  }
+  else if(!Number.isInteger(parseInt(req.body.quantity)) || req.body.quantity <= 0 )
+  {
+      res.send({status :'failure',data :"QUANTITY_WRONG"})
+  }
+  else if(!Number.isInteger(parseInt(req.body.prix)) || req.body.prix <= 0)
+  {
+      res.send({status :'failure',data :"PRIX_WRONG"})
+  }
+  else if(req.body.desc.length > 200)
+  {
+      res.send({status :'failure',data :"DES_WRONG"})
+  }
+  else
+  {
+      annonce.annonce(req.body.desc, req.body.quantity, req.body.prix, req.body.category, type_annonce)
+      .then((r)=>
+      {
+          console.log("-------roter------")
+          console.log(r)
+          id_annonce = r.insertId 
+          for(var i = 0; i < req.files.length; i++)
+          {
+              annonce.pic(req.files[i].filename,id_annonce,i)
+              .then(()=>
+              {
+                  
+              })
+              
+          }
+          res.send({status :'success',data : r })
+      })
+      .catch((err)=>{
+          res.send({status :'failure',data :"GENERAL"})
+      })
+  }
+})
+//----Demande-------/
+const demande = router.post('/demande', upload.array('pic',6),async (req, res) => {
+  var id_annonce
+  var type_annonce = 1
+  const annonce = new Annonce()
+  
+  if(isEmpty(req.body.category) || isEmpty(req.body.quantity) || isEmpty(req.body.prix) || isEmpty(req.body.desc))
+  {
+      console.log(ERRORS.DATA_MISSING)
+      res.send({status :'failure',data :"DATA_MISSING"})
+  }
+  else if(!Number.isInteger(parseInt(req.body.quantity)) || req.body.quantity <= 0 )
+  {
+      res.send({status :'failure',data :"QUANTITY_WRONG"})
+  }
+  else if(!Number.isInteger(parseInt(req.body.prix)) || req.body.prix <= 0)
+  {
+      res.send({status :'failure',data :"PRIX_WRONG"})
+  }
+  else if(req.body.desc.length > 200)
+  {
+      res.send({status :'failure',data :"DES_WRONG"})
+  }
+  else
+  {
+      annonce.annonce(req.body.desc, req.body.quantity, req.body.prix, req.body.category, type_annonce)
+      .then((r)=>
+      {
+          console.log("-------roter------")
+          console.log(r)
+          id_annonce = r.insertId 
+          if(req.files.length == 0)
+          {
+              annonce.pic("noImage.png",id_annonce,0)
+              .then(()=>
+              {
+              })
+          }
+          else
+          {
+              for(var i = 0; i < req.files.length; i++)
+              {
+                  annonce.pic(req.files[i].filename,id_annonce,i)
+                  .then(()=>
+                  {
+                  })
+              }
+          }
+          
+          res.send({status :'success',data : r })
+      })
+      .catch((err)=>{
+          res.send({status :'failure',data :"GENERAL"})
+      })
+  }
+})
 //-------------------Category-------------------
 const getCat =  router.post('/getCat', function (req, res) {
     const annonce = new Annonce()

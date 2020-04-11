@@ -1,10 +1,12 @@
 import React,{useEffect,useState} from 'react';
 import axios from "axios";
 import { ThemeProvider,createMuiTheme } from '@material-ui/core/styles';
+import { makeStyles , withStyles} from '@material-ui/core/styles';
 import { green } from '@material-ui/core/colors';
 import Card from '@material-ui/core/Card';
 import Grid from '@material-ui/core/Grid';
-import test from './../../images/1.jpg'
+import AppBar from '@material-ui/core/AppBar';
+import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import { useTranslation } from 'react-i18next';
 import Select from '@material-ui/core/Select';
@@ -20,6 +22,7 @@ import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import 'react-toastify/dist/ReactToastify.css';
 import './index.css';
 import './home.css';
+import myInitObject from './../../const'
 //var len= 0
 var produit={
     region:null,
@@ -30,7 +33,12 @@ var produit={
     descri : null,
     len:0
 }
-var it = 0;
+const NavBar = withStyles(theme => ({
+    root: {
+      backgroundColor: "#F6F6F6",
+      color: "black"
+    },
+  }))(AppBar);
 var tableau=[];
 
 var getRegion =[], getCategorie=[];
@@ -44,13 +52,22 @@ const theme = createMuiTheme({
     },
   });
  export default  function Home(props){
+
+    axios.post('http://localhost:3001/check_token',{token:localStorage.getItem('token')}).then((r)=>{
+        if(r.data.data == -2)
+            props.history.push("/login") 
+    })
+    axios.post('http://localhost:3001/check_type',{type:localStorage.getItem('type')}).then((r)=>{
+        if(r.data.data == 0)
+            props.history.push("/home1") 
+    })
     const [data, setData] = useState({ hits: [] });
     //const [datas, setDatas] = useState({ hitss: [] });
     const [tn, setDatan] = useState({ n: false ,len:null});
     
    useEffect(() => {
     const fetchData = async () => {
-        const result = await axios.post('http://localhost:3001/all');
+        const result = await axios.post('http://localhost:3001/all',{type:0});
         setData({hits:result.data});
         };
     fetchData();
@@ -136,7 +153,7 @@ const theme = createMuiTheme({
   {
       if(search.reg || search.cat)
       {
-        axios.post("http://localhost:3001/search",{region:search.reg,category:search.cat})
+        axios.post("http://localhost:3001/search",{region:search.reg,category:search.cat,type:0})
         .then((r)=>{
             //tableau =r.data
             setData({hits:r.data});
@@ -173,8 +190,7 @@ const theme = createMuiTheme({
   const next =()=>
   {
     produit.len++
-        it = 1;
-        console.log(it)
+
     if(produit.len >= tableau.length)
     produit.len = 0;
    /* else
@@ -190,40 +206,45 @@ const theme = createMuiTheme({
   }
     return(
         <div>
-           
             <div className="agri"></div>
             <div className="bar">
+            <NavBar position="static">
+            <Box display="flex"  style={{padding: "1% 3% 1% 1%" }}>
             <ThemeProvider theme={theme}>
-            <FormControl className="arsearch"><SearchIcon onClick={recherche} fontSize="large" className="icon" /></FormControl>
+            <FormControl className="arsearch mt-3"><SearchIcon onClick={recherche} fontSize="large" className="icon" /></FormControl>
             
               <FormControl variant="outlined"  className="formcateg">
-                    <InputLabel id="demo-simple-select-filled-label">{t('home.CATEGO')}</InputLabel>
+                    <InputLabel id="demo-simple-select-filled-label"> {t('home.CATEGO')}</InputLabel>
                     <Select
+                    label ={t('home.CATEGO')}
                     labelId="demo-simple-select-filled-label"
                     id="demo-simple-select-filled"
                     onChange={handleChangeCategory}
                     >
-                        <MenuItem > {t('home.CATEGO')}</MenuItem>
+                        <MenuItem  disabled> {t('home.CATEGO')}</MenuItem>
                         {getCategorie}
                     </Select>
                 </FormControl>
                 <FormControl variant="outlined"  className="formregion">
                     <InputLabel id="demo-simple-select-filled-label">{t('home.REGION')}</InputLabel>
                     <Select
+                    label ={t('home.REGION')}
                     labelId="demo-simple-select-filled-label"
                     id="demo-simple-select-filled"
                     onChange={handleChangeRegion}
                     >
-                        <MenuItem > {t('home.REGION')}</MenuItem>
+                        <MenuItem selectedValue> {t('home.REGION')}</MenuItem>
                         {getRegion}
                     </Select>
                 </FormControl>
                 
                 </ThemeProvider>
+                </Box>
+                </NavBar>
             </div>
             
         <Grid container justify="center">
-            
+        {data.hits.length === 0 && <span>Aucune annonce</span>}
                          {data.hits && data.hits.map((element,index)=>(
                             <React.Fragment key={index} >
                             <Card  className="card" onClick={()=>{info(element.id_annonce,element.quantity,element.prix,element.name_region,element.name_categorie,element.phone,element.description)}}>
@@ -262,7 +283,6 @@ const theme = createMuiTheme({
                             <div className="col-lg-6 col-md-6">
                                 <div className="productQuickView-image imgs">
                                     <ArrowBackIosIcon className="prec" onClick={prec}/>
-                                    {it}
                                     <img src={`http://localhost:3001/images/${tableau[produit.len].name_images}`} alt="image" /> 
                                     <ArrowForwardIosIcon className="next" onClick={next}/>
                                 </div>
@@ -274,22 +294,20 @@ const theme = createMuiTheme({
                                 <div className="product-content">
                                     <h3>{produit.descri}</h3>
                                     <ul className="product-info">
-                                        <li><span>Prix:</span>{produit.prix}DH </li>
-                                        <li><span>Quntite:</span> {produit.quan}KG</li>
-                                        <li><span>Categorie:</span>{produit.cat}</li>
-                                        <li><span>Phone:</span>0{produit.phone}</li>
+                                        <li><span>{t('home.PRIX')}:</span>{produit.prix}{t('home.PRICE')} </li>
+                                        <li><span>{t('home.QUAN')}:</span> {produit.quan}{t('home.KG')}</li>
+                                        <li><span>{t('home.CAT')}:</span>{produit.cat}</li>
+                                        <li><span>{t('home.PHO')}:</span>0{produit.phone}</li>
                                     </ul>
-                                    <div className="product-add-to-cart">
+                                    <div className="product-add-to-cart mt-5">
                                         <button 
                                             type="submit" 
                                             className="btn btn-primary"
                                             //onClick={this.handleAddToCartFromView}
                                         >
-                                            <ShoppingCartIcon/> Add to Cart
+                                            <ShoppingCartIcon/> {t('home.ADD')}
                                         </button>
                                     </div>
-
-                                    <a href="#" className="view-full-info">View full info</a>
                                 </div>
                             </div>
                         </div>

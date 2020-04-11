@@ -27,7 +27,7 @@ const login =  router.post('/login', function (req, res) {
                     {
                         res.send(r)
                     })
-                    .catch((err)=>{
+                    .catch(()=>{
                         resolve({status :'failure',data :"GENERAL"})
                     })
                 }

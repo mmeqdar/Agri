@@ -12,6 +12,7 @@
         "REGISTER_PHONE": "Le numéro de téléphone déjà existe",
         "CODE": "Code invalide",
         "REGION":"Région invalide",
+        "TYPE":"Type invalide",
         "PSWD_CONFI":"Mot de passe de confirmation incorrect",
         "LABEL_PHONE":"Numéro De Téléphone",
         "LABEL_PASS":"Mot De Passe",
@@ -29,6 +30,9 @@
         "LABEL_PASS":"Mot De Passe",
         "LABEL_CPASS":"Confirmation Mot De Passe",
         "LABEL_REG":"Région",
+        "LABEL_TYPE":"type compte",
+        "VENDEUR":"Vendeur",
+        "ACHETEUR":"Acheteur",
         "BTN_SIGNUP":"S'inscrire",
         "TO_SIGNIN":"Je suis déjà membre",
         "h1":"S'inscrire"
@@ -37,7 +41,7 @@
     {
         "HOME":"Accueil",
         "ACCOUNT":"Compte",
-        "CART":"Voir le panier",
+        "CART":"Annonce",
         "LANGUAGE":"Langue",
         "LOGIN":"Se connecter",
         "REGISTER":"S'inscrire"
@@ -48,8 +52,13 @@
         "BUY":"Acheter",
         "KG":"KG",
         "WELCOME":"Bienvenue",
-        "CATEGO":"toutes catégories",
-        "REGION":"toutes les régions"
+        "CATEGO":"Catégories",
+        "REGION":"Régions",
+        "PRIX":"Prix",
+        "QUAN":"Quantité",
+        "PHO":"Téléphone",
+        "CAT":"Catégorie",
+        "ADD":"Ajouter au chariot"
     },
     "annonce":
     {
