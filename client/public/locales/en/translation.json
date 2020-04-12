@@ -75,6 +75,8 @@
         "ANN_SUCCESS":"Finishing Up !!",
         "ADD_AD":"Add your AD",
         "BTN":"Place your ad",
+        "BUTTN":"Edit your ad",
+        "B":"Edit",
         "QUANTITY_WRONG":"Quantity is wrong !! ",
         "PRIX_WRONG":"Price is wrong !!",
         "DES_WRONG":"Description must contain less than 200 !!",

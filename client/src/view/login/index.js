@@ -11,7 +11,7 @@ import Container from '@material-ui/core/Container';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles, withStyles , ThemeProvider,createMuiTheme } from '@material-ui/core/styles';
-import { green } from '@material-ui/core/colors';
+import { green, grey } from '@material-ui/core/colors';
 import axios from "axios";
 import IconButton from '@material-ui/core/IconButton';
 import Visibility from '@material-ui/icons/Visibility';
@@ -31,33 +31,7 @@ var form={
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
-function Copyrightar() {
-  const { t } = useTranslation();
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'.'}
-      {new Date().getFullYear()}
-      {' '}
-      <Link color="inherit" href="https://material-ui.com/">
-        AgriEdge
-      </Link>
-      {' © حقوق النشر'}
-    </Typography>
-  );
-}
-function Copyright() {
-  const { t } = useTranslation();
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Agri Edge
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
+
 const theme = createMuiTheme({
   palette: {
     primary: green,
@@ -103,10 +77,14 @@ const useStyles = makeStyles(theme => ({
     marginTop: theme.spacing(1),
   },
   submit: {
-    margin: theme.spacing(3, 0, 2),
+    margin: theme.spacing(0, 0, 2),
   },
   colorLink: {
-    color : green[700],
+    color : grey[800],
+    marginBottom : "30px",
+    '&:hover': {
+      color : green[700],
+    },
   },
   input: {
     color: green[700],
@@ -336,23 +314,16 @@ if(localStorage.getItem('langue')  !== "ar")
                                           {mssg}
                                         </Alert>
                                     </Snackbar>
-                                      {/* <Grid container > */}
                                         <Grid item>
                                           <Link href="/account/register" variant="body2" className={classes.colorLink}>
                                             {t('login.TO_SIGNUP')}
                                           </Link>
                                         </Grid>
-                                      {/* </Grid> */}
-                                      
                                       </ThemeProvider>
                                     </form>
                                   </div>
-                                  <Box mt={5}>
-                                        <Copyright />
-                                  </Box>
                                   </ContainerR>
                             </div>
-
                             <div className="col-lg-6 col-md-12 mt-5">
                                 <div className="new-customer-content">
                                     <span>{t('login.OPEN')}</span>
@@ -446,6 +417,9 @@ else
                             }}
                             onChange={handleChangePswd}
                         />
+                          <Link href="/forgot" variant="body2" className={classes.colorLink}>
+                            نسيت كلمة السر؟
+                            </Link>
                         </Grid>
                         <ColorButton
                             fullWidth
@@ -462,11 +436,6 @@ else
                             </Alert>
                         </Snackbar>
                         <Grid container >
-                            <Grid item xs >
-                            <Link href="/forgot" variant="body2" className={classes.colorLink}>
-                            نسيت كلمة السر؟
-                            </Link>
-                            </Grid>
                             <Grid item>
                             <Link href="/account/register" variant="body2" className={classes.colorLink}>
                                 {"لا تملك حساب؟ أفتح حساب الأن"}
@@ -476,9 +445,6 @@ else
                         </ThemeProvider>
                         </form>
                     </div>
-                    <Box mt={5}>
-                            <Copyrightar/>
-                    </Box>
                 </ContainerR>
                 </div>
             </div>

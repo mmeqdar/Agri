@@ -1,11 +1,12 @@
 const express = require('express');
 const router = express.Router();
 const Annonce = require('../models/m_annonce');
+const Token = require('../models/m_token');
 const isEmpty  = require('../utils/isEmpty')
 var multer  = require('multer')
 const { ERRORS } = require('../../config/const').RESPONSES;
 
-let err
+let id
   //----------MULTER------------
   var storage = multer.diskStorage({
     destination: function(req, file, cb) {
@@ -143,6 +144,87 @@ const getCat =  router.post('/getCat', function (req, res) {
         res.send({status :'failure',data :"GENERAL"})
     })
 });
-
+/*----------------------MY ANNONCE----------------------*/
+//-------------------Get_Annonce-------------------
+const get_myAnn =  router.post('/get_myAnn', function (req, res) {
+    const annonce = new Annonce()
+    const token = new Token()
+    console.log("------------------"+req.body.token+"-----------")
+    token.token(req.body.token).then((r) => {
+        if(r !== -2)
+        {
+            console.log("----------rrr--------"+r+"-----------")
+            annonce.get_myAnn(r)
+            .then((r)=>
+            {
+                console.table(r)
+                res.send(r)
+            })
+            .catch((err)=>{
+                res.send({status :'failure',data :"GENERAL"})
+            })
+        }
+        else
+            res.send({status :'failure',data :"GENERAL"})
+    })
+    .catch((err)=>{
+        res.send({status :'failure',data :"GENERAL"})
+    })
+});
+//-------------------Update_Annonce-------------------
+const editAnnonce =  router.post('/editAnnonce', function (req, res) {
+    const annonce = new Annonce()
+    const token = new Token()
+    console.table(req.body)
+    token.token(req.body.token).then((r) => {
+        if(r !== -2)
+        {
+            console.log("--------------(("+r+"))-----------")
+            annonce.editAnnonce(req.body.id_ann,r,req.body.quantity,req.body.prix,req.body.desc)
+            .then((r)=>
+            {
+                console.table(r)
+                res.send({status :'success',data : r })
+            })
+            .catch((err)=>{
+                res.send({status :'failure',data :"GENERAL"})
+            })
+        }
+        else
+            res.send({status :'failure',data :"GENERAL"})
+    })
+    .catch((err)=>{
+        res.send({status :'failure',data :"GENERAL"})
+    })
+});
+//-------------------Delete_Annonce-------------------
+const deleteAnnonce =  router.post('/deleteAnnonce', function (req, res) {
+    const annonce = new Annonce()
+    const token = new Token()
+    console.table(req.body)
+    token.token(req.body.token).then((r) => {
+        if(r !== -2)
+        {
+            console.log("--------ddeeelll------(("+r+"))-----------")
+            annonce.deleteAnnonce(req.body.id_ann,r)
+            .then((r)=>
+            {
+                console.table(r)
+                res.send({status :'success',data : r })
+            })
+            .catch((err)=>{
+                res.send({status :'failure',data :"GENERAL"})
+            })
+        }
+        else
+            res.send({status :'failure',data :"GENERAL"})
+    })
+    .catch((err)=>{
+        res.send({status :'failure',data :"GENERAL"})
+    })
+});
 module.exports = annonce
 module.exports = getCat
+module.exports = get_myAnn
+module.exports = editAnnonce
+module.exports = deleteAnnonce

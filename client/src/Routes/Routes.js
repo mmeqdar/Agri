@@ -17,15 +17,15 @@ const Routes = () => {
     return (
         <>
             <BrowserRouter>
-            <Route exact path="/account/login" component={Login} />
-            <Route exact path="/account/register" component={Register} />
-            <Route exact path="/confirmation" component={confirmation}/>
-            <Route exact path="/forgot" component={forgot}/>
-            <Route exact path="/verif" component={forgot1}/>
-            <Route exact path="/newPassword" component={newPassword}/>
-            <Route exact path="/" component={home}/>
-            <Route exact path="/annonce" component={Annonce} />
-            <Route exact path="/demande" component={Demande} />
+                <Route exact path="/account/login" component={Login} />
+                <Route exact path="/account/register" component={Register} />
+                <Route exact path="/confirmation" component={confirmation}/>
+                <Route exact path="/forgot" component={forgot}/>
+                <Route exact path="/verif" component={forgot1}/>
+                <Route exact path="/newPassword" component={newPassword}/>
+                <Route exact path="/" component={home}/>
+                <Route exact path="/annonce" component={Annonce} />
+                <Route exact path="/demande" component={Demande} />
             </BrowserRouter>
         </>
     )

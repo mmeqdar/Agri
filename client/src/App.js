@@ -1,7 +1,6 @@
 import React from 'react';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import NavBar from "./view/NavBar/";
-//import Routes from './Routes/Routes';
 import Register from './view/register/';
 import confirmation from './view/confirmation/';
 import forgot from "./view/forgot/";
@@ -11,20 +10,21 @@ import Login from "./view/login/";
 import home from "./view/home/";
 import home1 from "./view/home1/"
 import Annonce from "./view/annonce";
+import Footer from "./view/footer/";
+import MesAnnonce from "./view/mesAnnonce/";
 import {Route,  BrowserRouter } from 'react-router-dom';
 import Demande from "./view/demande";
 import NotFoundPage from './view/NotFoundPage';
 import Axios from 'axios';
 
-//const  createBrowserHistory = require("history/createBrowserHistory")
-//const history = createBrowserHistory()
-//{user === null ? EmailConfirmCont : HomeContainer} 
+
 
 function App() {
   return (
  
       <div className="App" >
-          <BrowserRouter><NavBar />
+          <BrowserRouter>
+            <NavBar />
             <Route exact path="/login" component={Login} />
             <Route exact path="/register" component={Register} />
             <Route exact path="/confirmation" component={confirmation}/>
@@ -35,8 +35,9 @@ function App() {
             <Route exact path="/annonce" component={Annonce} />
             <Route exact path="/home1" component={home1} />
             <Route exact path="/demande" component={Demande} />
-            
-            </BrowserRouter>
+            <Route exact path="/mesAnnonce" component={MesAnnonce} />
+            <Footer />
+          </BrowserRouter>
       </div>
    
     

@@ -74,11 +74,12 @@
         "ANN_SUCCESS":"Finir !!",
         "ADD_AD":"Ajoutez votre ANNONCE",
         "BTN":"Déposer votre annonce",
+        "BUTTN":"Éditer votre annonce",
+        "B":"Éditer",
         "QUANTITY_WRONG":"La quantité n'est pas valide !!",
         "PRIX_WRONG":"Le prix n'est pas valide !!",
         "DES_WRONG":"La description doit contenir moins de 200 !!",
         "ERR_GENERAL":"Une erreur s'est produite, Veuillez réessayer plus tard !!",
         "DATA_MISSING": "Un ou plusieurs arguments sont manquants !!"
     }
-    
 }

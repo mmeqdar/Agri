@@ -40,33 +40,7 @@ var form={
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
-function Copyright() {
-  const { t } = useTranslation();
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {t('copyright')}{ '© '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Agri Edge
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
 
-function Copyrightar() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'.'}
-      {new Date().getFullYear()}
-      {' '}
-      <Link color="inherit" href="https://material-ui.com/">
-        AgriEdge
-      </Link>
-      {' © حقوق النشر'}
-    </Typography>
-  );
-}
 const theme = createMuiTheme({
   palette: {
     primary: green,
@@ -503,7 +477,6 @@ else
           </Grid>
         </form>
       </div>
-        <Copyright />
     </ContainerR>
   );}
   else
@@ -670,7 +643,6 @@ else
           </Grid>
         </form>
       </div>
-      <Copyrightar />
     </ContainerR>
   );
   }

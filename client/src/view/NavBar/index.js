@@ -248,7 +248,7 @@ export default function PrimarySearchAppBar() {
       onClose={handleLanguageMenuClose}
     >
       <MenuItem onClick={() => {handleLanguageMenuClose(); changeL('ar')}} className={classes.btn}>العربية</MenuItem>
-      <MenuItem onClick={() => {handleLanguageMenuClose(); changeL('eng')}} className={classes.btn}>English</MenuItem>
+      <MenuItem onClick={() => {handleLanguageMenuClose(); changeL('en')}} className={classes.btn}>English</MenuItem>
       <MenuItem onClick={() => {handleLanguageMenuClose(); changeL('fr')}} className={classes.btn}>Français</MenuItem>
     </Menu>
   );
@@ -290,7 +290,7 @@ export default function PrimarySearchAppBar() {
         <MenuItem className={classes.btn} onClick={handleLanguageMenuOpen}>
           <TranslateOutlinedIcon /> <Box fontWeight="fontWeightBold">{t('nav.LANGUAGE')}</Box><ArrowDropDownOutlinedIcon />
         </MenuItem>
-        {user !== "-2" &&  <div   className={classes.btn} activeClassName={classes.navbarLinkActive}>
+        {user !== "-2" &&  <div   className={classes.btn}>
                 <MenuItem>
                   <Box fontWeight="fontWeightBold" ><img onClick={Profile} className={classes.pic} src={avata}/></Box>
                 </MenuItem>
@@ -357,7 +357,7 @@ export default function PrimarySearchAppBar() {
                   <TranslateOutlinedIcon /> <Box fontWeight="fontWeightBold">{t('nav.LANGUAGE')}</Box><ArrowDropDownOutlinedIcon />
                 </MenuItem>
               </NavLink>
-              {user !== "-2" &&  <div className={classes.btn} activeClassName={classes.navbarLinkActive}>
+              {user !== "-2" &&  <div className={classes.btn} >
                 <MenuItem>
                   <Box fontWeight="fontWeightBold" ><img onClick={Profile} className={classes.pic} src={avata}/></Box>
                 </MenuItem>
@@ -537,7 +537,7 @@ export default function PrimarySearchAppBar() {
         <MenuItem className={classes.btn} onClick={handleLanguageMenuOpen}>
           <TranslateOutlinedIcon /> <Box fontWeight="fontWeightBold">اللغة</Box><ArrowDropDownOutlinedIcon />
         </MenuItem>
-        {user !== "-2" &&  <div className={classes.btn} activeClassName={classes.navbarLinkActive}>
+        {user !== "-2" &&  <div className={classes.btn}>
                 <MenuItem>
                   <Box fontWeight="fontWeightBold" ><img onClick={Profile} className={classes.pic} src={avata}/></Box>
                 </MenuItem>
@@ -683,12 +683,12 @@ export default function PrimarySearchAppBar() {
                  <Box fontWeight="fontWeightBold" ><ExitToAppIcon/> </Box>
                 </MenuItem>
               </NavLink>}
-              {user !== "-2" &&  <div className={classes.btn} activeClassName={classes.navbarLinkActive}>
+              {user !== "-2" &&  <div className={classes.btn}>
                 <MenuItem>
                   <Box fontWeight="fontWeightBold" ><img onClick={Profile} className={classes.pic} src={avata}/></Box>
                 </MenuItem>
               </div>}
-              <NavLink to="#" className={classes.btn}>
+              <NavLink to="#" >
                 <MenuItem
                   edge="end"
                   aria-label="language of current user"
@@ -698,7 +698,7 @@ export default function PrimarySearchAppBar() {
                   onClick={handleLanguageMenuOpen }
                   className={classes.btn}
                 >
-                  < ArrowDropDownOutlinedIcon/> <Box fontWeight="fontWeightBold">اللغة</Box>< TranslateOutlinedIcon/>
+                  < ArrowDropDownOutlinedIcon className="mb-1"/> <Box fontWeight="fontWeightBold">اللغة</Box>< TranslateOutlinedIcon/>
                 </MenuItem>
               </NavLink>
               {user !== "-2" &&   <NavLink  to={to} className={classes.btn} activeClassName={classes.navbarLinkActive}>

@@ -1,7 +1,7 @@
 import React,{useEffect,useState} from 'react';
 import axios from "axios";
 import { ThemeProvider,createMuiTheme } from '@material-ui/core/styles';
-import { makeStyles , withStyles} from '@material-ui/core/styles';
+import {  withStyles} from '@material-ui/core/styles';
 import { green } from '@material-ui/core/colors';
 import Card from '@material-ui/core/Card';
 import Grid from '@material-ui/core/Grid';
@@ -19,6 +19,10 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
+import Carousel from 'react-bootstrap/Carousel'
+import img_1 from  "../../images/1.jpg"
+import img_2 from  "../../images/2.jpg"
+import img_3 from  "../../images/3.jpg"
 import 'react-toastify/dist/ReactToastify.css';
 import './index.css';
 import './home.css';
@@ -62,7 +66,6 @@ const theme = createMuiTheme({
             props.history.push("/home1") 
     })
     const [data, setData] = useState({ hits: [] });
-    //const [datas, setDatas] = useState({ hitss: [] });
     const [tn, setDatan] = useState({ n: false ,len:null});
     
    useEffect(() => {
@@ -77,7 +80,7 @@ const theme = createMuiTheme({
   {
       if(r.data)
       {
-        if(localStorage.getItem('langue')  == 'en')
+        if(localStorage.getItem('langue')  !== 'ar')
         {
           for(var i = 0;i <r.data.length ;i++)
           {
@@ -126,6 +129,19 @@ const theme = createMuiTheme({
           {
             getCategorie[i] = <MenuItem  key = {i} value = {r.data[i].id_categorie}> {r.data[i].name_categorie}</MenuItem>
           }
+        }
+        else if(localStorage.getItem('langue')  == 'fr')
+        {
+            for(var i = 0;i <r.data.length ;i++)
+                { 
+                    if(r.data[i].name_categorie === "fruits")
+                        r.data[i].name_categorie = "fruits"
+                    if(r.data[i].name_categorie === "vegetables")
+                        r.data[i].name_categorie = "légumes"
+                    if(r.data[i].name_categorie === "cereal")
+                        r.data[i].name_categorie = "céréale" 
+                    getCategorie[i] = <MenuItem  key = {i} value = {r.data[i].id_categorie}> {r.data[i].name_categorie}</MenuItem>
+                }
         }
         else
         {
@@ -206,40 +222,71 @@ const theme = createMuiTheme({
   }
     return(
         <div>
-            <div className="agri"></div>
+            <Carousel >
+                <Carousel.Item style={{height: "400px"}} className="car">
+                    <img
+                    className="d-block w-100 h-100"
+                    src={img_1}
+                    alt="First slide"
+                    />
+                    <Carousel.Caption>
+                        <h1 style={{fontSize: "500%"}}>First slide label</h1>
+                    </Carousel.Caption>
+                </Carousel.Item>
+                <Carousel.Item style={{height: "400px"}} className="car">
+                    <img
+                    className="d-block w-100 h-100"
+                    src={img_2}
+                    alt="Third slide"
+                    />
+                    <Carousel.Caption>
+                        <h1 style={{fontSize: "500%"}}>Second slide label</h1>
+                    </Carousel.Caption>
+                </Carousel.Item >
+                <Carousel.Item style={{height: "400px" }} className="car">
+                    <img
+                    className="d-block w-100 h-100"
+                    src={img_3}
+                    alt="Third slide"
+                    />
+                    <Carousel.Caption>
+                        <h1 style={{fontSize: "500%"}}>Third slide label</h1>
+                    </Carousel.Caption>
+                </Carousel.Item>
+            </Carousel>
             <div className="bar">
-            <NavBar position="static">
-            <Box display="flex"  style={{padding: "1% 3% 1% 1%" }}>
-            <ThemeProvider theme={theme}>
-            <FormControl className="arsearch mt-3"><SearchIcon onClick={recherche} fontSize="large" className="icon" /></FormControl>
-            
-              <FormControl variant="outlined"  className="formcateg">
-                    <InputLabel id="demo-simple-select-filled-label"> {t('home.CATEGO')}</InputLabel>
-                    <Select
-                    label ={t('home.CATEGO')}
-                    labelId="demo-simple-select-filled-label"
-                    id="demo-simple-select-filled"
-                    onChange={handleChangeCategory}
-                    >
-                        <MenuItem  disabled> {t('home.CATEGO')}</MenuItem>
-                        {getCategorie}
-                    </Select>
-                </FormControl>
-                <FormControl variant="outlined"  className="formregion">
-                    <InputLabel id="demo-simple-select-filled-label">{t('home.REGION')}</InputLabel>
-                    <Select
-                    label ={t('home.REGION')}
-                    labelId="demo-simple-select-filled-label"
-                    id="demo-simple-select-filled"
-                    onChange={handleChangeRegion}
-                    >
-                        <MenuItem selectedValue> {t('home.REGION')}</MenuItem>
-                        {getRegion}
-                    </Select>
-                </FormControl>
-                
-                </ThemeProvider>
-                </Box>
+                <NavBar position="static">
+                    <Box display="flex"  style={{padding: "1% 3% 1% 1%" }}>
+                        <ThemeProvider theme={theme}>
+                            <FormControl className="arsearch mt-2 col-1">
+                                <SearchIcon onClick={recherche} fontSize="large" className="icon" />
+                            </FormControl>
+                            <FormControl variant="outlined"  className="formcateg col-5">
+                                <InputLabel id="demo-simple-select-filled-label"> {t('home.CATEGO')}</InputLabel>
+                                <Select
+                                label ={t('home.CATEGO')}
+                                labelId="demo-simple-select-filled-label"
+                                id="demo-simple-select-filled"
+                                onChange={handleChangeCategory}
+                                >
+                                    <MenuItem  disabled> {t('home.CATEGO')}</MenuItem>
+                                    {getCategorie}
+                                </Select>
+                            </FormControl>
+                            <FormControl variant="outlined"  className="formregion col-5">
+                                <InputLabel id="demo-simple-select-filled-label">{t('home.REGION')}</InputLabel>
+                                <Select
+                                label ={t('home.REGION')}
+                                labelId="demo-simple-select-filled-label"
+                                id="demo-simple-select-filled"
+                                onChange={handleChangeRegion}
+                                >
+                                    <MenuItem disabled> {t('home.REGION')}</MenuItem>
+                                    {getRegion}
+                                </Select>
+                            </FormControl>
+                        </ThemeProvider>
+                    </Box>
                 </NavBar>
             </div>
             
@@ -250,9 +297,7 @@ const theme = createMuiTheme({
                             <Card  className="card" onClick={()=>{info(element.id_annonce,element.quantity,element.prix,element.name_region,element.name_categorie,element.phone,element.description)}}>
                             <div className="container">
                                 <img
-                                
                                     className="media"
-                                    //src="http://localhost:3001/images/img-1585432083227test1.jpg"
                                     src={`http://localhost:3001/images/${element.name_images}`}
                                 />
                                     <div className="overlay" >
